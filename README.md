@@ -1,1 +1,2 @@
-# ToDo List - Tenplating with EJS
+# URL for the newsletter sign up page 
+
