@@ -1,3 +1,1 @@
-# newsletter
-
-This is for the newsletter project
+# ToDo List - Tenplating with EJS
