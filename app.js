@@ -1,50 +1,42 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const app = express();
-app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
+const form = document.querySelector("#task-form");
+const taskList = document.querySelector(".collection");
+const clearBtn = document.querySelector(".clear-tasks");
+const filter = document.querySelector("#filter");
+const taskInput = document.querySelector("#task");
 
-// app.get("/", function(req, res) {
-//   res.sendFile(__dirname + "/index.html");
-// });
-//the ejs syntax
-// app.get("/", (req, res) => {
-//   res.render("index", { foo: "FOO" });
-// });
-app.get("/", function(req, res) {
-  var today = new Date();
-  var currentDay = today.getDay();
-  var day = "";
-  switch (currentDay) {
-    case 0:
-      day = "Sunday";
-      break;
-    case 1:
-      day = "Monday";
-      break;
-    case 2:
-      day = "Tuesday";
-      break;
-    case 3:
-      day = "Wednesday";
-      break;
-    case 4:
-      day = "Thursday";
-      break;
-    case 5:
-      day = "Friday";
-      break;
-    case 6:
-      day = "Saturday";
-      break;
-    default:
-      console.log("Error: current day is equal to " + currentDay);
-  }
-  res.render("List", {
-    kindOfDay: day
-  });
-});
+// function to load all event listioners
+loadEventListeners();
 
-app.listen(3000, function() {
-  console.log("Server listening on: http://localhost:3000");
-});
+// load all event listioners function
+function loadEventListeners() {
+  // add task event
+  form.addEventListener("submit", addTask);
+}
+
+//addTask Function
+function addTask(e) {
+  // make sure there is a task to add
+  if (taskInput.value === "") alert("Add a task");
+
+  // create li element
+  const li = document.createElement("li");
+  // add class to the element
+  li.className = "collection-item";
+  //create text node and append to li
+  li.appendChild(document.createTextNode(taskInput.value));
+  // create new link element
+  const link = document.createElement("a");
+  //add class
+  link.className = "delete-item secondary-content";
+  //add icon html
+  link.innerHTML = '<i class="fa fa-remove"></i>';
+  //append the link to li
+  li.appendChild(link);
+  //append li to ul
+  taskList.appendChild(li);
+  //clear input
+  taskInput.value = "";
+
+  // prevent default submit of form
+  e.preventDefault();
+}
